@@ -3,11 +3,16 @@ require([
 "esri/views/MapView",
 "esri/widgets/Home",
 "esri/layers/TileLayer",
+"esri/layers/FeatureLayer",
 "esri/widgets/Swipe",
 "esri/widgets/Expand",
 "esri/widgets/BasemapGallery",
 "esri/widgets/Locate"
-], function(Map, MapView, Home, TileLayer, Swipe, Expand, BasemapGallery, Locate) {
+], function(Map, MapView, Home, TileLayer, FeatureLayer, Swipe, Expand, BasemapGallery, Locate) {
+        var poiLayer = new FeatureLayer({
+        // URL points to a cached tiled map service hosted on ArcGIS Server
+        url: "https://services5.arcgis.com/b7cJ4YYc9GM63RSz/arcgis/rest/services/monuments_mqt_county/FeatureServer/0",      
+        });
         var mqtLayer = new TileLayer({
         // URL points to a cached tiled map service hosted on ArcGIS Server
         url: "https://tiles.arcgis.com/tiles/b7cJ4YYc9GM63RSz/arcgis/rest/services/marquette1917/MapServer",      
@@ -35,7 +40,7 @@ require([
         // Add layer to a new map
         var map = new Map({
           basemap: "satellite",
-          layers: [ishLayer, mqtLayer, negLayer, repLayer, michLayer]
+          layers: [ishLayer, mqtLayer, negLayer, repLayer, michLayer, poiLayer]
         });
 
         var view = new MapView({
@@ -43,7 +48,31 @@ require([
           map: map,
           center: [-87.3954, 46.5436],
           zoom: 16
-        });     
+        });  
+
+        poiLayer.renderer = {
+          type: "simple",  // autocasts as new SimpleRenderer()
+          symbol: {
+            type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
+            size: 12,
+            color: "black",
+            outline: {  // autocasts as new SimpleLineSymbol()
+              width: 0.5,
+              color: "white"
+            }
+          }
+        };   
+        
+        // Set the outfields for the POI layer
+        poiLayer.outFields = ['Name'];
+        view.on("click", function(event){
+          view.hitTest(event, { include: poiLayer})
+            .then(function(response){      
+               // do something with the result graphic
+               var graphic = response.results[0].graphic;
+               console.log(graphic.attributes);
+            });
+        });
 
       // set the default opacity of the sanborn layers
       ishLayer.opacity = 100;  
@@ -104,10 +133,10 @@ require([
   swipeBtn.addEventListener('click', function(event){
     // create a new Swipe widget
       swipe = new Swipe({
-        leadingLayers: [ishLayer, mqtLayer, negLayer, repLayer, michLayer],
+        leadingLayers: [ishLayer, mqtLayer, negLayer, repLayer, michLayer, poiLayer],
         type: "scope",
         //trailingLayers: [nearInfrared],
-        position: 50, // set position of widget to 35%
+        position: 35, // set position of widget to 35%
         view: view
       });
     view.ui.add(swipe);
@@ -140,6 +169,38 @@ require([
         view.ui.add(locateBtn, {
           position: "top-left"
         });
+
+  // Code for the location dropdown menu
+  $("#location").change(function () {
+    // Get the value of the selected item
+    var value = this.value;
+    if (value == 'mqt') {
+      view.goTo({
+        center: [-87.3954, 46.5436],
+        zoom: 16
+      });
+    } else if (value == 'ish') {
+       view.goTo({
+        center: [-87.6652670, 46.4925248],
+        zoom: 16
+      });            
+    } else if (value == 'neg') {
+      view.goTo({
+        center: [-87.6100150, 46.5008506],
+        zoom: 16
+      });
+    } else if (value == 'rep') {            
+      view.goTo({
+        center: [-87.9771783, 46.4065989],
+        zoom: 17
+      }); 
+    } else if (value == 'mich') {            
+      view.goTo({
+        center: [-88.1093581, 46.5355518],
+        zoom: 17
+      });
+    }
+  });
 
 });
 

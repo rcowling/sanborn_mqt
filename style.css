@@ -120,6 +120,19 @@ body, html {
   cursor: pointer; /* Cursor on hover */
 }
 
+#location {
+  z-index: 9999;
+  position: absolute;
+  top: 71px;
+  left: 60px;
+  width: 220px;
+  height: 35px;
+  border-radius: 0px;
+  background-color: #242424;
+  color: #adadad;
+  border: none;
+}
+
 
  
 
