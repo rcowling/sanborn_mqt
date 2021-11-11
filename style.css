@@ -1,6 +1,11 @@
+@font-face {
+    font-family: Cera Bold;
+    src: url("fonts/ceraregular.otf") format("opentype");
+}
+
 /*Font for the entire app*/
 body, html {
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: 'Cera Bold';
 }
 
 /*Map container*/
@@ -89,8 +94,8 @@ body, html {
 /* The slider itself */
 .slider {  
   position: absolute;
-  top: 65px;
-  right: 10px;
+  top: 72px;
+  left: 58px;
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
   width: 15%; /* Full-width */
@@ -101,36 +106,38 @@ body, html {
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
 }
 
-
-
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   width: 25px; /* Set a specific slider handle width */
   height: 25px; /* Slider handle height */
-  background: #04AA6D; /* Green background */
+  background: #095339; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
 
 .slider::-moz-range-thumb {
   width: 25px; /* Set a specific slider handle width */
   height: 25px; /* Slider handle height */
-  background: #04AA6D; /* Green background */
+  background: #095339; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
 
-#location {
-  z-index: 9999;
+#location {  
   position: absolute;
-  top: 71px;
-  left: 60px;
-  width: 220px;
+  top: 110px;
+  right: 15px;
+  width: 240px;
   height: 35px;
   border-radius: 0px;
   background-color: #242424;
   color: #adadad;
   border: none;
+}
+
+.responsive {
+  width: 100%;
+  height: auto;
 }
 
 

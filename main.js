@@ -6,9 +6,11 @@ require([
 "esri/layers/FeatureLayer",
 "esri/widgets/Swipe",
 "esri/widgets/Expand",
+"esri/widgets/Search",
 "esri/widgets/BasemapGallery",
 "esri/widgets/Locate"
-], function(Map, MapView, Home, TileLayer, FeatureLayer, Swipe, Expand, BasemapGallery, Locate) {
+], function(Map, MapView, Home, TileLayer, FeatureLayer, Swipe, Expand, Search, BasemapGallery, Locate) {
+        $('#aboutModal').modal('show');
         var poiLayer = new FeatureLayer({
         // URL points to a cached tiled map service hosted on ArcGIS Server
         url: "https://services5.arcgis.com/b7cJ4YYc9GM63RSz/arcgis/rest/services/monuments_mqt_county/FeatureServer/0",      
@@ -55,22 +57,27 @@ require([
           symbol: {
             type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
             size: 12,
-            color: "black",
+            color: "#095339",
             outline: {  // autocasts as new SimpleLineSymbol()
               width: 0.5,
               color: "white"
             }
           }
         };   
-        
+
         // Set the outfields for the POI layer
-        poiLayer.outFields = ['Name'];
+        poiLayer.outFields = ['Name', 'image', 'Description', 'source'];
         view.on("click", function(event){
           view.hitTest(event, { include: poiLayer})
             .then(function(response){      
                // do something with the result graphic
                var graphic = response.results[0].graphic;
                console.log(graphic.attributes);
+                $('#name').html(graphic.attributes.Name);
+                $('#source').html("Source: " + graphic.attributes.source);
+                $('#desc').html(graphic.attributes.Description);
+                document.getElementById("modalimg").src="img/" + graphic.attributes.image; 
+               $('#imageModal').modal('show');
             });
         });
 
@@ -161,7 +168,7 @@ require([
 
   $(".esri-icon-close").hide();
 
-  const locateBtn = new Locate({
+  var locateBtn = new Locate({
           view: view
         });
 
@@ -169,6 +176,16 @@ require([
         view.ui.add(locateBtn, {
           position: "top-left"
         });
+
+  var searchWidget = new Search({
+  view: view
+});
+// Adds the search widget below other elements in
+// the top left corner of the view
+view.ui.add(searchWidget, {
+  position: "top-right",
+  index: 2
+});      
 
   // Code for the location dropdown menu
   $("#location").change(function () {
