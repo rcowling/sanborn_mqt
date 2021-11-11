@@ -10,7 +10,7 @@ require([
 "esri/widgets/BasemapGallery",
 "esri/widgets/Locate"
 ], function(Map, MapView, Home, TileLayer, FeatureLayer, Swipe, Expand, Search, BasemapGallery, Locate) {
-        $('#aboutModal').modal('show');
+        //$('#aboutModal').modal('show');
         var poiLayer = new FeatureLayer({
         // URL points to a cached tiled map service hosted on ArcGIS Server
         url: "https://services5.arcgis.com/b7cJ4YYc9GM63RSz/arcgis/rest/services/monuments_mqt_county/FeatureServer/0",      
