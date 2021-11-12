@@ -101,10 +101,20 @@ require([
         michLayer.opacity = this.value / 100;
       }
 
-      var homeBtn = new Home({
+      var infoBtn = document.createElement('div');
+      infoBtn.className = "esri-icon-description esri-widget--button esri-widget esri-interactive";
+      infoBtn.title = "About this application";
+      infoBtn.addEventListener('click', function(event){
+        $('#aboutModal').modal('show');
+      });
+
+      // Add the button to the UI
+      view.ui.add(infoBtn, "top-left");
+
+      /*var homeBtn = new Home({
             view: view
         });
-        view.ui.add(homeBtn, "top-left");
+        view.ui.add(homeBtn, "top-left");*/
 
          // Create a BasemapGallery widget instance and set
       // its container to a div element
@@ -154,7 +164,7 @@ require([
   // Add the button to the UI
   view.ui.add(swipeBtn, "top-left");  
 
-   var closeBtn = document.createElement('div');
+  var closeBtn = document.createElement('div');
   closeBtn.className = "esri-icon-close esri-widget--button esri-widget esri-interactive";
   closeBtn.title = "Exit swipe";
   closeBtn.addEventListener('click', function(event){
@@ -166,7 +176,7 @@ require([
   // Add the button to the UI
   view.ui.add(closeBtn, "top-left");  
 
-  $(".esri-icon-close").hide();
+  $(".esri-icon-close").hide();  
 
   var locateBtn = new Locate({
           view: view
@@ -218,88 +228,4 @@ view.ui.add(searchWidget, {
       });
     }
   });
-
 });
-
-
-
-
-
-
-/*require([
-      "esri/Map",
-      "esri/views/MapView",
-      "esri/layers/TileLayer",
-      "esri/widgets/Swipe",
-      "esri/widgets/Expand",
-      "esri/widgets/BasemapGallery"
-    ], (Map, MapView, TileLayer, Swipe, Expand, BasemapGallery) => {
-      // Setup sanborn tile layer
-      var sanLayer = new TileLayer({
-      // URL points to a cached tiled map service hosted on ArcGIS Server
-      url: "https://tiles.arcgis.com/tiles/b7cJ4YYc9GM63RSz/arcgis/rest/services/mqttiles/MapServer/0",      
-      });
-
-      // Add layer to a new map
-      var map = new Map({
-        basemap: "satellite",
-        layers: [sanLayer]
-      });
-
-      var view = new MapView({
-        container: "viewDiv",
-        map: map,
-        center: [-87.3954, 46.5436],
-        zoom: 16
-      });
-
-      // set the default opacity of the sanborn layer
-      sanLayer.opacity = 100;
-      // set up the opacity slider 
-      var slider = document.getElementById("myRange");         
-
-      // Update the current slider value (each time you drag the slider handle)
-      slider.oninput = function() {
-        // Change the opacity of the tile layer according to the sliders value
-        sanLayer.opacity = this.value / 100;
-        console.log(this.value);
-      }
-
-      // Setup ESRI Widgets
-      // Create a BasemapGallery widget instance and set
-      // its container to a div element
-      var basemapGallery = new BasemapGallery({
-        view: view,
-        container: document.createElement("div")
-      });
-
-      // Create an Expand instance and set the content
-      // property to the DOM node of the basemap gallery widget
-      var bgExpand = new Expand({
-        view: view,
-        content: basemapGallery
-      });
-
-      // close the expand whenever a basemap is selected
-      basemapGallery.watch("activeBasemap", function() {
-        var mobileSize = view.heightBreakpoint === "xsmall" || view.widthBreakpoint === "xsmall";
-
-        if (mobileSize) {
-          bgExpand.collapse();
-        }
-      });
-
-      // Add the expand instance to the ui
-      view.ui.add(bgExpand, "top-left"); 
-
-      // create a new Swipe widget
-      var swipe = new Swipe({
-        leadingLayers: [sanLayer],
-        type: "scope",
-        //trailingLayers: [nearInfrared],
-        position: 50, // set position of widget to 35%
-        view: view
-      });
-      // add the widget to the view
-      view.ui.add(swipe);
-    });*/
