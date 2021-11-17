@@ -8,8 +8,8 @@ require([
 "esri/widgets/Expand",
 "esri/widgets/Search",
 "esri/widgets/BasemapGallery",
-"esri/widgets/Locate"
-], function(Map, MapView, Home, TileLayer, FeatureLayer, Swipe, Expand, Search, BasemapGallery, Locate) {
+"esri/widgets/Track"
+], function(Map, MapView, Home, TileLayer, FeatureLayer, Swipe, Expand, Search, BasemapGallery, Track) {
         $('#aboutModal').modal('show');
         var poiLayer = new FeatureLayer({
         // URL points to a cached tiled map service hosted on ArcGIS Server
@@ -178,18 +178,15 @@ require([
 
   $(".esri-icon-close").hide();  
 
-  var locateBtn = new Locate({
-          view: view
-        });
+  var trackWidget = new Track({
+    view: view
+  });
 
-        // Add the locate widget to the top left corner of the view
-        view.ui.add(locateBtn, {
-          position: "top-left"
-        });
+  view.ui.add(trackWidget, "top-left");
 
   var searchWidget = new Search({
-  view: view
-});
+    view: view
+  });
 // Adds the search widget below other elements in
 // the top left corner of the view
 view.ui.add(searchWidget, {
