@@ -136,8 +136,27 @@ body, html {
 }
 
 .responsive {
-  width: 100%;
-  height: auto;
+  width: 100%;  
+}
+
+#image {
+  display: none;
+}
+
+.viewer-title {
+  color: white;
+  font-size: 14px;
+  opacity: 1; 
+}
+
+.figure {
+  font-size: 10px;  
+}
+
+h10 {
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
 }
 
  @media only screen and (max-width: 600px) {

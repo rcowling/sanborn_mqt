@@ -9,11 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.0/viewer.css" integrity="sha512-tYobxYoCZxl0CejYCA8c4w8HRcg3wRoKaGYIQ/2ILqyB4vRqMd/Jmehxod1dQJ2uE/9rDY9pG48isM8SHEAwDQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>    
-    <script src="https://js.arcgis.com/4.18/"></script>  
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.0/viewer.js" integrity="sha512-psAniLUS9J4A5KNQiSt9XMNeVSMx/Rz89vQJqeYlOIiTR5WK8zU/8EPwAKt+522eeV04QUzIwX5VrAW10FbdeQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+    <script src="https://js.arcgis.com/4.18/"></script> 
+
   </head>
   <body>     
     <!-- Main navbar -->
@@ -43,6 +46,10 @@
     <option value="rep">Republic 1922</option>
     <option value="mich">Michigamme 1902</option>
 </select>
+<div>
+  <!-- Default Image for ViewerJS -->
+  <img id="image" src="" alt="Picture">
+</div>     
 <div class="slidecontainer">
   <input type="range" min="1" max="100" value="100" class="slider" id="myRange">
 </div> 
@@ -64,7 +71,7 @@
   </div>
 </div>
 <div class="modal" id="aboutModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog  modal-dialog-scrollable" role="document">
+  <div class="modal-dialog modal  modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">About this Project</h5>
@@ -74,10 +81,13 @@
       </div>
       <div class="modal-body">
         <img src="img/mqt.jpg" alt="mqt air photo" class="responsive">
-        <p>(Historical photo of the Presque Isle Ore Dock from The Library of Congress.)</p>
+        <p class="figure">(Historical photo of the Presque Isle Ore Dock from The Library of Congress.)</p>
+        <h10>About this project</h10>
         <p>This interactive map shows what various cities and towns in Marquette County, Michigan looked like in the past with the use of Sanborn Fire Insurance Maps.</p>
         <p>The Sanborn maps are overlaid of top of a current aerial basemap to allow the user to compare historical Marquette to what it
         looks like in the present.</p> <p>The following cities and towns are included in this project: Marquette 1917, Ishpeming 1911, Negaunee 1911, Republic 1922, and Michigamme 1902.</p>
+        <p>This project is part of the NMU Archives UPLINK Project. For more information on UPLINK please <a href="https://nmu.edu/archives/uplink">click here</a>.</p>
+        <h10>Using this application</h10>
         <img src="img/menu.png" alt="dropdown menu" class="responsive">
         <p> Use the dropdown menu to switch between historical map collections. </p>
         <img src="img/opacity.png" alt="opacity slider" class="responsive"><br><br>
@@ -88,8 +98,9 @@
         <p> Click on any point of interest to view a historical photo of the place and information about the location. 
         <img src="img/geo.png" alt="lanse mobile" class="responsive">
         <p>Mobile users can use the geolocation button and walk around Marquette County to gain a deeper visual of the past to present.</p>
-        <p> This project was developed by <a href="https://rcowling.github.io">Bob Cowling</a>. The development consisted of georeferencing historcal sanborn maps and then displayed them as a basemap in an ArcGIS Online Web application. If you have any questions about the application please feel free to <a href="mailto:rcowling@wisc.edu">Contact Me</a>.</p><p>This project is part of the NMU Archives UPLINK Project. For more information on UPLINK please <a href="https://nmu.edu/archives/uplink">click here</a>.</p>
-        <p>Special thank you to Dr. Robert Legg for his assistance in helping to host these historical maps on ArcGIS Online.</p>   
+        <h10>Credits</h10>
+        <p> This project was developed by <a href="https://rcowling.github.io">Bob Cowling</a>. The development consisted of georeferencing historcal Sanborn maps and then displayed them as a basemap in an ArcGIS Online Web application. If you have any questions about the application please feel free to <a href="mailto:rcowling@wisc.edu">Contact Me</a>. All georeferenced Sanborn maps from this project are freely available on NMU's ArcGIS Online Portal for students or researchers to use in courses or research projects.</p>
+        <p>Special thank you to Dr. Robert Legg for his assistance with helping to host these historical maps on ArcGIS Online.</p>   
       </div>      
     </div>
   </div>

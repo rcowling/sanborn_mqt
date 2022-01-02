@@ -63,21 +63,50 @@ require([
               color: "white"
             }
           }
-        };   
+        };
+
+         // setup a new viewer to display the historical images
+        var viewer = new Viewer(document.getElementById('image'), {
+          navbar: false,
+          inline: false,
+          toolbar: {
+            zoomIn: 1,
+            zoomOut: 1,
+            oneToOne: 1,
+            reset: 1,
+            prev: 0,
+            play: {
+              show: 1,
+              size: 'large',
+            },
+            next: 0,
+            rotateLeft: 1,
+            rotateRight: 1,
+            flipHorizontal: 1,
+            flipVertical: 1,
+          },
+          viewed() {
+            //viewer.zoomTo(1);
+          },
+        });    
 
         // Set the outfields for the POI layer
         poiLayer.outFields = ['Name', 'image', 'Description', 'source'];
         view.on("click", function(event){
           view.hitTest(event, { include: poiLayer})
             .then(function(response){      
-               // do something with the result graphic
+               // get the attibutes from the resulting graphic
                var graphic = response.results[0].graphic;
                console.log(graphic.attributes);
-                $('#name').html(graphic.attributes.Name);
-                $('#source').html("Source: " + graphic.attributes.source);
-                $('#desc').html(graphic.attributes.Description);
-                document.getElementById("modalimg").src="img/" + graphic.attributes.image; 
-               $('#imageModal').modal('show');
+               var imageurl = graphic.attributes.image;
+               var name = graphic.attributes.Name;
+               var desc = graphic.attributes.Description;
+               var source = graphic.attributes.source;
+               // use attributes to add a new image to the viewer and display it
+               document.getElementById('image').src="img/" + imageurl;
+               document.getElementById('image').alt=name + " [" + desc + "] Source: " + source ;
+               viewer.update(); 
+               viewer.show();              
             });
         });
 
@@ -89,7 +118,7 @@ require([
       michLayer.opacity = 100;
 
       // set up the opacity slider 
-      var slider = document.getElementById("myRange");         
+      var slider = document.getElementById("myRange"); 
 
       // Update the current slider value (each time you drag the slider handle)
       slider.oninput = function() {
